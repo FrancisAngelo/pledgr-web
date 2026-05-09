@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pledgr — Verified Trader Profile</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0A0A0F;
+      color: #F0EFF8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: #13131A;
+      border-radius: 24px;
+      border: 0.5px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .card-header {
+      background: linear-gradient(135deg, rgba(124,111,255,0.2) 0%, transparent 100%);
+      padding: 32px 24px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
+    .avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7C6FFF, #5a4fff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 800;
+      color: #fff; flex-shrink: 0;
+      box-shadow: 0 0 24px rgba(124,111,255,0.4);
+    }
+    .user-info { flex: 1; }
+    .username {
+      font-size: 22px; font-weight: 700;
+      color: #F0EFF8; letter-spacing: -0.5px;
+    }
+    .verified-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(46,204,138,0.15);
+      border: 0.5px solid rgba(46,204,138,0.3);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 12px; color: #2ECC8A;
+      font-weight: 500; margin-top: 5px;
+    }
+    .level-section {
+      padding: 20px 24px;
+      display: flex; align-items: center; gap: 14px;
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
+    .level-orb {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .level-info {}
+    .level-label { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; }
+    .level-name { font-size: 16px; font-weight: 700; color: #F0EFF8; margin-top: 2px; }
+    .stats-row {
+      display: flex;
+      padding: 20px 24px;
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
+    .stat { flex: 1; text-align: center; }
+    .stat-num { font-size: 24px; font-weight: 700; color: #F0EFF8; }
+    .stat-label { font-size: 11px; color: #5C5A72; margin-top: 3px; }
+    .stat-divider { width: 0.5px; background: rgba(255,255,255,0.06); }
+    .socials-section { padding: 20px 24px; }
+    .socials-title { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; margin-bottom: 12px; }
+    .social-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      background: #1C1C26;
+      border-radius: 10px;
+      border: 0.5px solid rgba(255,255,255,0.07);
+      margin-bottom: 8px;
+      text-decoration: none;
+    }
+    .social-icon { font-size: 18px; }
+    .social-name { font-size: 14px; color: #F0EFF8; font-weight: 500; }
+    .social-handle { font-size: 12px; color: #5C5A72; margin-left: auto; }
+    .no-socials { font-size: 13px; color: #5C5A72; }
+
+    .disclaimer {
+      width: 100%; max-width: 400px;
+      padding: 14px 16px;
+      background: rgba(124,111,255,0.06);
+      border: 0.5px solid rgba(124,111,255,0.2);
+      border-radius: 14px;
+      font-size: 12px; color: #9896B0;
+      line-height: 1.6; margin-bottom: 20px;
+    }
+    .download-btn {
+      width: 100%; max-width: 400px;
+      padding: 16px;
+      background: #7C6FFF;
+      border-radius: 14px;
+      border: none;
+      color: #fff;
+      font-size: 16px; font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .logo-row {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 32px;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: #1a1830;
+      border-radius: 10px;
+      border: 1px solid rgba(124,111,255,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text { font-size: 22px; font-weight: 800; color: #F0EFF8; letter-spacing: -0.5px; }
+    .not-found { text-align: center; color: #5C5A72; margin-top: 60px; }
+    .not-found h2 { font-size: 24px; color: #F0EFF8; margin-bottom: 8px; }
+    .loading { text-align: center; color: #5C5A72; margin-top: 60px; font-size: 16px; }
+    #profile { display: none; width: 100%; max-width: 400px; flex-direction: column; align-items: center; }
+    #error { display: none; }
+  </style>
+</head>
+<body>
+  <div class="logo-row">
+    <div class="logo-icon">🛡️</div>
+    <span class="logo-text">Pledgr</span>
+  </div>
+
+  <p class="loading" id="loading">Loading profile...</p>
+
+  <div id="profile">
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar" id="avatar"></div>
+        <div class="user-info">
+          <div class="username" id="username"></div>
+          <div class="verified-badge">✓ Pledgr Verified</div>
+        </div>
+      </div>
+
+      <div class="level-section">
+        <div class="level-orb" id="level-orb"></div>
+        <div class="level-info">
+          <div class="level-label">TRUST LEVEL</div>
+          <div class="level-name" id="level-name"></div>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num" id="trade-count">0</div>
+          <div class="stat-label">Trades</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-num" id="completion-rate">—</div>
+          <div class="stat-label">Completion</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-num" id="member-since">—</div>
+          <div class="stat-label">Member since</div>
+        </div>
+      </div>
+
+      <div class="socials-section">
+        <div class="socials-title">LINKED PROFILES</div>
+        <div id="socials-list"></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      🛡️ This profile is verified by Pledgr — a peer-to-peer transaction trust layer. Pledgr is not a marketplace or payment processor. Always trade responsibly.
+    </div>
+
+    <a class="download-btn" href="https://pledgr.app" id="download-btn">
+      📱 Download Pledgr to trade safely
+    </a>
+  </div>
+
+  <div id="error" class="not-found">
+    <h2>Profile not found</h2>
+    <p>This Pledgr profile doesn't exist or has been removed.</p>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://gnahywseztaspmnfhrml.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduYWh5d3NlenRhc3BtbmZocm1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNjU0OTUsImV4cCI6MjA5Mzc0MTQ5NX0.O4Xgu9dKnlHeIKl4iYVp-VRmX4SQnsXo2oojCLr6Lcg';
+
+    const LEVEL_INFO = {
+      1: { name: 'Registered', color: '#5C5A72' },
+      2: { name: 'Linked Trader', color: '#9896B0' },
+      3: { name: 'Active Trader', color: '#2ECC8A' },
+      4: { name: 'Trusted', color: '#7C6FFF' },
+      5: { name: 'Elite', color: '#FFB800' },
+    };
+
+    const SOCIAL_ICONS = {
+      facebook: '📘',
+      discord: '💬',
+      steam: '🎮',
+      twitter: '🐦',
+      reddit: '🤖',
+    };
+
+    async function loadProfile() {
+      const params = new URLSearchParams(window.location.search);
+      const username = params.get('u') || window.location.pathname.replace('/@', '').replace('/', '');
+
+      if (!username) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'block';
+        return;
+      }
+
+      try {
+        // Fetch user
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/users?username=eq.${username.toLowerCase()}&select=*`,
+          { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+        );
+        const users = await res.json();
+
+        if (!users || users.length === 0) {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('error').style.display = 'block';
+          return;
+        }
+
+        const user = users[0];
+
+        // Fetch socials
+        const socialRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/social_links?user_id=eq.${user.id}&select=*`,
+          { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+        );
+        const socials = await socialRes.json();
+
+        // Populate UI
+        const level = LEVEL_INFO[user.trust_level] || LEVEL_INFO[1];
+        document.getElementById('avatar').textContent = user.username[0].toUpperCase();
+        document.getElementById('username').textContent = '@' + user.username;
+        document.getElementById('level-orb').textContent = user.trust_level;
+        document.getElementById('level-orb').style.background = level.color + '22';
+        document.getElementById('level-orb').style.color = level.color;
+        document.getElementById('level-orb').style.border = `1px solid ${level.color}44`;
+        document.getElementById('level-name').textContent = level.name;
+        document.getElementById('trade-count').textContent = user.trade_count || 0;
+        document.getElementById('completion-rate').textContent = user.completion_rate ? user.completion_rate + '%' : '—';
+
+        const date = new Date(user.created_at);
+        document.getElementById('member-since').textContent = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+        // Socials
+        const socialsList = document.getElementById('socials-list');
+        if (socials && socials.length > 0) {
+          socials.forEach(s => {
+            const item = document.createElement('div');
+            item.className = 'social-item';
+            item.innerHTML = `
+              <span class="social-icon">${SOCIAL_ICONS[s.platform] || '🔗'}</span>
+              <span class="social-name">${s.platform.charAt(0).toUpperCase() + s.platform.slice(1)}</span>
+              <span class="social-handle">${s.handle}</span>
+            `;
+            socialsList.appendChild(item);
+          });
+        } else {
+          socialsList.innerHTML = '<p class="no-socials">No linked profiles yet</p>';
+        }
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('profile').style.display = 'flex';
+
+      } catch (err) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'block';
+      }
+    }
+
+    loadProfile();
+  </script>
+</body>
+</html>

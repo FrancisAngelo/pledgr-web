@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pledgr — Verified Trader Profile</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -17,8 +18,7 @@
       padding: 40px 20px;
     }
     .card {
-      width: 100%;
-      max-width: 400px;
+      width: 100%; max-width: 400px;
       background: #13131A;
       border-radius: 24px;
       border: 0.5px solid rgba(255,255,255,0.08);
@@ -28,33 +28,25 @@
     .card-header {
       background: linear-gradient(135deg, rgba(124,111,255,0.2) 0%, transparent 100%);
       padding: 32px 24px 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      display: flex; align-items: center; gap: 16px;
       border-bottom: 0.5px solid rgba(255,255,255,0.06);
     }
     .avatar {
-      width: 72px; height: 72px;
-      border-radius: 50%;
+      width: 72px; height: 72px; border-radius: 50%;
       background: linear-gradient(135deg, #7C6FFF, #5a4fff);
       display: flex; align-items: center; justify-content: center;
-      font-size: 28px; font-weight: 800;
-      color: #fff; flex-shrink: 0;
+      font-size: 28px; font-weight: 800; color: #fff; flex-shrink: 0;
       box-shadow: 0 0 24px rgba(124,111,255,0.4);
     }
     .user-info { flex: 1; }
-    .username {
-      font-size: 22px; font-weight: 700;
-      color: #F0EFF8; letter-spacing: -0.5px;
-    }
+    .username { font-size: 22px; font-weight: 700; color: #F0EFF8; letter-spacing: -0.5px; }
     .verified-badge {
       display: inline-flex; align-items: center; gap: 5px;
       background: rgba(46,204,138,0.15);
       border: 0.5px solid rgba(46,204,138,0.3);
       border-radius: 999px;
       padding: 3px 10px;
-      font-size: 12px; color: #2ECC8A;
-      font-weight: 500; margin-top: 5px;
+      font-size: 12px; color: #2ECC8A; font-weight: 500; margin-top: 5px;
     }
     .level-section {
       padding: 20px 24px;
@@ -62,26 +54,32 @@
       border-bottom: 0.5px solid rgba(255,255,255,0.06);
     }
     .level-orb {
-      width: 52px; height: 52px;
-      border-radius: 50%;
+      width: 52px; height: 52px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 800;
-      flex-shrink: 0;
+      font-size: 22px; font-weight: 800; flex-shrink: 0;
     }
-    .level-info {}
     .level-label { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; }
     .level-name { font-size: 16px; font-weight: 700; color: #F0EFF8; margin-top: 2px; }
     .stats-row {
-      display: flex;
-      padding: 20px 24px;
+      display: flex; padding: 20px 24px;
       border-bottom: 0.5px solid rgba(255,255,255,0.06);
     }
     .stat { flex: 1; text-align: center; }
     .stat-num { font-size: 24px; font-weight: 700; color: #F0EFF8; }
     .stat-label { font-size: 11px; color: #5C5A72; margin-top: 3px; }
     .stat-divider { width: 0.5px; background: rgba(255,255,255,0.06); }
+
+    /* Chart section */
+    .chart-section { padding: 20px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+    .section-title { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; margin-bottom: 12px; }
+    .chart-wrap { display: flex; align-items: center; gap: 16px; }
+    .chart-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9896B0; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .legend-value { margin-left: auto; font-weight: 700; }
+
+    /* Socials */
     .socials-section { padding: 20px 24px; }
-    .socials-title { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; margin-bottom: 12px; }
     .social-item {
       display: flex; align-items: center; gap: 10px;
       padding: 10px 12px;
@@ -90,10 +88,15 @@
       border: 0.5px solid rgba(255,255,255,0.07);
       margin-bottom: 8px;
       text-decoration: none;
+      cursor: default;
+      transition: border-color 0.2s;
     }
+    .social-item.clickable { cursor: pointer; }
+    .social-item.clickable:hover { border-color: rgba(124,111,255,0.4); }
     .social-icon { font-size: 18px; }
     .social-name { font-size: 14px; color: #F0EFF8; font-weight: 500; }
     .social-handle { font-size: 12px; color: #5C5A72; margin-left: auto; }
+    .social-arrow { color: #7C6FFF; font-size: 13px; margin-left: 4px; }
     .no-socials { font-size: 13px; color: #5C5A72; }
 
     .disclaimer {
@@ -110,27 +113,14 @@
       padding: 16px;
       background: #7C6FFF;
       border-radius: 14px;
-      border: none;
-      color: #fff;
+      border: none; color: #fff;
       font-size: 16px; font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: block;
+      cursor: pointer; text-align: center;
+      text-decoration: none; display: block;
       margin-bottom: 12px;
     }
-    .logo-row {
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 32px;
-    }
-    .logo-icon {
-      width: 36px; height: 36px;
-      background: #1a1830;
-      border-radius: 10px;
-      border: 1px solid rgba(124,111,255,0.4);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-    }
+    .logo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 32px; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .logo-text { font-size: 22px; font-weight: 800; color: #F0EFF8; letter-spacing: -0.5px; }
     .not-found { text-align: center; color: #5C5A72; margin-top: 60px; }
     .not-found h2 { font-size: 24px; color: #F0EFF8; margin-bottom: 8px; }
@@ -142,20 +132,20 @@
 <body>
   <div class="logo-row">
     <div class="logo-icon">
-  <svg width="36" height="36" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
-    <rect width="680" height="680" rx="140" fill="#7C3AED"/>
-    <path d="M 60 680 L 60 490 Q 50 360 120 310 Q 155 285 195 305 Q 218 318 228 358 Q 255 305 285 288 Q 312 272 340 272 Q 368 272 395 288 Q 425 305 452 358 Q 462 318 485 305 Q 525 285 560 310 Q 630 360 620 490 L 620 680 Z" fill="#fff"/>
-    <circle cx="232" cy="455" r="98" fill="#7C3AED"/>
-    <circle cx="232" cy="455" r="66" fill="#fff"/>
-    <circle cx="250" cy="440" r="38" fill="#7C3AED"/>
-    <circle cx="268" cy="425" r="12" fill="#fff"/>
-    <circle cx="448" cy="455" r="98" fill="#7C3AED"/>
-    <circle cx="448" cy="455" r="66" fill="#fff"/>
-    <circle cx="464" cy="440" r="38" fill="#7C3AED"/>
-    <circle cx="482" cy="425" r="12" fill="#fff"/>
-    <ellipse cx="340" cy="558" rx="22" ry="16" fill="#7C3AED"/>
-  </svg>
-</div>
+      <svg width="36" height="36" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+        <rect width="680" height="680" rx="140" fill="#7C3AED"/>
+        <path d="M 60 680 L 60 490 Q 50 360 120 310 Q 155 285 195 305 Q 218 318 228 358 Q 255 305 285 288 Q 312 272 340 272 Q 368 272 395 288 Q 425 305 452 358 Q 462 318 485 305 Q 525 285 560 310 Q 630 360 620 490 L 620 680 Z" fill="#fff"/>
+        <circle cx="232" cy="455" r="98" fill="#7C3AED"/>
+        <circle cx="232" cy="455" r="66" fill="#fff"/>
+        <circle cx="250" cy="440" r="38" fill="#7C3AED"/>
+        <circle cx="268" cy="425" r="12" fill="#fff"/>
+        <circle cx="448" cy="455" r="98" fill="#7C3AED"/>
+        <circle cx="448" cy="455" r="66" fill="#fff"/>
+        <circle cx="464" cy="440" r="38" fill="#7C3AED"/>
+        <circle cx="482" cy="425" r="12" fill="#fff"/>
+        <ellipse cx="340" cy="558" rx="22" ry="16" fill="#7C3AED"/>
+      </svg>
+    </div>
     <span class="logo-text">Pledgr</span>
   </div>
 
@@ -173,7 +163,7 @@
 
       <div class="level-section">
         <div class="level-orb" id="level-orb"></div>
-        <div class="level-info">
+        <div>
           <div class="level-label">TRUST LEVEL</div>
           <div class="level-name" id="level-name"></div>
         </div>
@@ -182,12 +172,7 @@
       <div class="stats-row">
         <div class="stat">
           <div class="stat-num" id="trade-count">0</div>
-          <div class="stat-label">Trades</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <div class="stat-num" id="completion-rate">—</div>
-          <div class="stat-label">Completion</div>
+          <div class="stat-label">Completed</div>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
@@ -196,8 +181,17 @@
         </div>
       </div>
 
+      <!-- Chart section -->
+      <div class="chart-section" id="chart-section" style="display:none">
+        <div class="section-title">TRADE BREAKDOWN</div>
+        <div class="chart-wrap">
+          <canvas id="tradeChart" width="120" height="120" style="flex-shrink:0"></canvas>
+          <div class="chart-legend" id="chart-legend"></div>
+        </div>
+      </div>
+
       <div class="socials-section">
-        <div class="socials-title">LINKED PROFILES</div>
+        <div class="section-title">LINKED PROFILES</div>
         <div id="socials-list"></div>
       </div>
     </div>
@@ -206,7 +200,7 @@
       🛡️ This profile is verified by Pledgr — a peer-to-peer transaction trust layer. Pledgr is not a marketplace or payment processor. Always trade responsibly.
     </div>
 
-    <a class="download-btn" href="https://pledgr.app" id="download-btn">
+    <a class="download-btn" href="https://pledgr.app">
       📱 Download Pledgr to trade safely
     </a>
   </div>
@@ -229,72 +223,96 @@
     };
 
     const SOCIAL_ICONS = {
-      facebook: '📘',
-      discord: '💬',
-      steam: '🎮',
-      twitter: '🐦',
-      reddit: '🤖',
+      facebook: '📘', discord: '💬', twitter: '🐦', x: '🐦',
     };
+
+    function maskHandle(handle) {
+      if (!handle) return handle;
+      if (handle.includes('@') && handle.includes('.') && !handle.startsWith('http')) {
+        const [local, domain] = handle.split('@');
+        const masked = local.length > 2
+          ? local[0] + '*'.repeat(local.length - 2) + local[local.length - 1]
+          : local[0] + '*';
+        return `${masked}@${domain}`;
+      }
+      return handle;
+    }
+
+    const headers = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
 
     async function loadProfile() {
       const params = new URLSearchParams(window.location.search);
-      const username = params.get('u') || window.location.pathname.replace('/@', '').replace('/', '');
-
-      if (!username) {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').style.display = 'block';
-        return;
-      }
+      const username = params.get('u');
+      if (!username) { showError(); return; }
 
       try {
-        // Fetch user
-        const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/users?username=eq.${username.toLowerCase()}&select=*`,
-          { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
-        );
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/users?username=eq.${username.toLowerCase()}&select=*`, { headers });
         const users = await res.json();
-
-        if (!users || users.length === 0) {
-          document.getElementById('loading').style.display = 'none';
-          document.getElementById('error').style.display = 'block';
-          return;
-        }
-
+        if (!users || users.length === 0) { showError(); return; }
         const user = users[0];
 
-        // Fetch socials
-        const socialRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/social_links?user_id=eq.${user.id}&select=*`,
-          { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
-        );
-        const socials = await socialRes.json();
-
-        // Populate UI
         const level = LEVEL_INFO[user.trust_level] || LEVEL_INFO[1];
         document.getElementById('avatar').textContent = user.username[0].toUpperCase();
         document.getElementById('username').textContent = '@' + user.username;
         document.getElementById('level-orb').textContent = user.trust_level;
-        document.getElementById('level-orb').style.background = level.color + '22';
-        document.getElementById('level-orb').style.color = level.color;
-        document.getElementById('level-orb').style.border = `1px solid ${level.color}44`;
+        document.getElementById('level-orb').style.cssText = `background:${level.color}22;color:${level.color};border:1px solid ${level.color}44;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0;`;
         document.getElementById('level-name').textContent = level.name;
         document.getElementById('trade-count').textContent = user.trade_count || 0;
-        document.getElementById('completion-rate').textContent = user.completion_rate ? user.completion_rate + '%' : '—';
+        document.getElementById('member-since').textContent = new Date(user.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
-        const date = new Date(user.created_at);
-        document.getElementById('member-since').textContent = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        // Fetch trades for chart
+        const tradesRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/trades?or=(seller_id.eq.${user.id},buyer_id.eq.${user.id})&select=status`,
+          { headers }
+        );
+        const trades = await tradesRes.json();
+        if (trades && trades.length > 0) {
+          const stats = {
+            Completed: trades.filter(t => t.status === 'completed').length,
+            Active: trades.filter(t => ['waiting','active','payment_uploaded','delivered'].includes(t.status)).length,
+            Expired: trades.filter(t => t.status === 'expired').length,
+            Disputed: trades.filter(t => t.status === 'disputed').length,
+          };
+          const colors = { Completed: '#2ECC8A', Active: '#7C6FFF', Expired: '#FFB800', Disputed: '#FF5E5E' };
+          const labels = Object.keys(stats).filter(k => stats[k] > 0);
+          if (labels.length > 0) {
+            document.getElementById('chart-section').style.display = 'block';
+            new Chart(document.getElementById('tradeChart'), {
+              type: 'doughnut',
+              data: {
+                labels,
+                datasets: [{ data: labels.map(k => stats[k]), backgroundColor: labels.map(k => colors[k]), borderWidth: 0 }]
+              },
+              options: { plugins: { legend: { display: false } }, cutout: '65%' }
+            });
+            const legend = document.getElementById('chart-legend');
+            labels.forEach(k => {
+              legend.innerHTML += `
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:${colors[k]}"></div>
+                  <span>${k}</span>
+                  <span class="legend-value" style="color:${colors[k]}">${stats[k]}</span>
+                </div>`;
+            });
+          }
+        }
 
-        // Socials
+        // Fetch socials
+        const socialRes = await fetch(`${SUPABASE_URL}/rest/v1/social_links?user_id=eq.${user.id}&select=*`, { headers });
+        const socials = await socialRes.json();
         const socialsList = document.getElementById('socials-list');
         if (socials && socials.length > 0) {
           socials.forEach(s => {
+            const isClickable = s.handle && s.handle.startsWith('http');
             const item = document.createElement('div');
-            item.className = 'social-item';
+            item.className = `social-item${isClickable ? ' clickable' : ''}`;
             item.innerHTML = `
               <span class="social-icon">${SOCIAL_ICONS[s.platform] || '🔗'}</span>
               <span class="social-name">${s.platform.charAt(0).toUpperCase() + s.platform.slice(1)}</span>
-              <span class="social-handle">${s.handle}</span>
+              <span class="social-handle">${maskHandle(s.handle)}</span>
+              ${isClickable ? '<span class="social-arrow">↗</span>' : ''}
             `;
+            if (isClickable) item.onclick = () => window.open(s.handle, '_blank');
             socialsList.appendChild(item);
           });
         } else {
@@ -303,11 +321,14 @@
 
         document.getElementById('loading').style.display = 'none';
         document.getElementById('profile').style.display = 'flex';
-
       } catch (err) {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').style.display = 'block';
+        showError();
       }
+    }
+
+    function showError() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').style.display = 'block';
     }
 
     loadProfile();

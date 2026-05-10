@@ -8,123 +8,61 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #0A0A0F;
-      color: #F0EFF8;
+      background: #0A0A0F; color: #F0EFF8;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px;
     }
-    .card {
-      width: 100%; max-width: 400px;
-      background: #13131A;
-      border-radius: 24px;
-      border: 0.5px solid rgba(255,255,255,0.08);
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    .card-header {
-      background: linear-gradient(135deg, rgba(124,111,255,0.2) 0%, transparent 100%);
-      padding: 32px 24px 24px;
-      display: flex; align-items: center; gap: 16px;
-      border-bottom: 0.5px solid rgba(255,255,255,0.06);
-    }
-    .avatar {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: linear-gradient(135deg, #7C6FFF, #5a4fff);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; font-weight: 800; color: #fff; flex-shrink: 0;
-      box-shadow: 0 0 24px rgba(124,111,255,0.4);
-    }
-    .user-info { flex: 1; }
+    .card { width: 100%; max-width: 400px; background: #13131A; border-radius: 24px; border: 0.5px solid rgba(255,255,255,0.08); overflow: hidden; margin-bottom: 16px; }
+    .card-header { background: linear-gradient(135deg, rgba(124,111,255,0.2) 0%, transparent 100%); padding: 32px 24px 24px; display: flex; align-items: center; gap: 16px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+    .avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #7C6FFF, #5a4fff); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; flex-shrink: 0; box-shadow: 0 0 24px rgba(124,111,255,0.4); }
     .username { font-size: 22px; font-weight: 700; color: #F0EFF8; letter-spacing: -0.5px; }
-    .verified-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(46,204,138,0.15);
-      border: 0.5px solid rgba(46,204,138,0.3);
-      border-radius: 999px;
-      padding: 3px 10px;
-      font-size: 12px; color: #2ECC8A; font-weight: 500; margin-top: 5px;
-    }
-    .level-section {
-      padding: 20px 24px;
-      display: flex; align-items: center; gap: 14px;
-      border-bottom: 0.5px solid rgba(255,255,255,0.06);
-    }
-    .level-orb {
-      width: 52px; height: 52px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 800; flex-shrink: 0;
-    }
+    .verified-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(46,204,138,0.15); border: 0.5px solid rgba(46,204,138,0.3); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: #2ECC8A; font-weight: 500; margin-top: 5px; }
+    .level-section { padding: 16px 24px; display: flex; align-items: center; gap: 14px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+    .level-orb { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; flex-shrink: 0; }
     .level-label { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; }
-    .level-name { font-size: 16px; font-weight: 700; color: #F0EFF8; margin-top: 2px; }
-    .stats-row {
-      display: flex; padding: 20px 24px;
-      border-bottom: 0.5px solid rgba(255,255,255,0.06);
-    }
+    .level-name { font-size: 15px; font-weight: 700; color: #F0EFF8; margin-top: 2px; }
+    .stats-row { display: flex; padding: 16px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
     .stat { flex: 1; text-align: center; }
-    .stat-num { font-size: 24px; font-weight: 700; color: #F0EFF8; }
+    .stat-num { font-size: 22px; font-weight: 700; color: #F0EFF8; }
     .stat-label { font-size: 11px; color: #5C5A72; margin-top: 3px; }
     .stat-divider { width: 0.5px; background: rgba(255,255,255,0.06); }
-
-    /* Chart section */
-    .chart-section { padding: 20px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+    .section { padding: 16px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+    .section:last-child { border-bottom: none; }
     .section-title { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; margin-bottom: 12px; }
     .chart-wrap { display: flex; align-items: center; gap: 16px; }
     .chart-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9896B0; }
     .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .legend-value { margin-left: auto; font-weight: 700; }
-
-    /* Socials */
-    .socials-section { padding: 20px 24px; }
-    .social-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px;
-      background: #1C1C26;
-      border-radius: 10px;
-      border: 0.5px solid rgba(255,255,255,0.07);
-      margin-bottom: 8px;
-      text-decoration: none;
-      cursor: default;
-      transition: border-color 0.2s;
-    }
+    .legend-value { margin-left: auto; font-weight: 700; font-size: 13px; }
+    .social-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #1C1C26; border-radius: 10px; border: 0.5px solid rgba(255,255,255,0.07); margin-bottom: 8px; transition: border-color 0.2s; }
     .social-item.clickable { cursor: pointer; }
     .social-item.clickable:hover { border-color: rgba(124,111,255,0.4); }
     .social-icon { font-size: 18px; }
     .social-name { font-size: 14px; color: #F0EFF8; font-weight: 500; }
     .social-handle { font-size: 12px; color: #5C5A72; margin-left: auto; }
     .social-arrow { color: #7C6FFF; font-size: 13px; margin-left: 4px; }
-    .no-socials { font-size: 13px; color: #5C5A72; }
-
-    .disclaimer {
-      width: 100%; max-width: 400px;
-      padding: 14px 16px;
-      background: rgba(124,111,255,0.06);
-      border: 0.5px solid rgba(124,111,255,0.2);
-      border-radius: 14px;
-      font-size: 12px; color: #9896B0;
-      line-height: 1.6; margin-bottom: 20px;
-    }
-    .download-btn {
-      width: 100%; max-width: 400px;
-      padding: 16px;
-      background: #7C6FFF;
-      border-radius: 14px;
-      border: none; color: #fff;
-      font-size: 16px; font-weight: 600;
-      cursor: pointer; text-align: center;
-      text-decoration: none; display: block;
-      margin-bottom: 12px;
-    }
+    /* Ratings */
+    .avg-card { background: rgba(255,184,0,0.06); border: 0.5px solid rgba(255,184,0,0.2); border-radius: 14px; padding: 16px; text-align: center; margin-bottom: 12px; }
+    .avg-num { font-size: 36px; font-weight: 800; color: #FFB800; }
+    .avg-stars { font-size: 20px; margin: 4px 0; }
+    .avg-sub { font-size: 12px; color: #5C5A72; }
+    .rating-item { background: #1C1C26; border-radius: 12px; border: 0.5px solid rgba(255,255,255,0.07); padding: 12px; margin-bottom: 8px; }
+    .rating-item-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .rating-avatar { width: 32px; height: 32px; border-radius: 50%; background: #2D2A6E; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #A99CFF; flex-shrink: 0; }
+    .rating-info { flex: 1; }
+    .rating-user { font-size: 13px; font-weight: 600; color: #F0EFF8; }
+    .rating-date { font-size: 11px; color: #5C5A72; margin-top: 1px; }
+    .rating-stars { font-size: 14px; }
+    .rating-comment { font-size: 13px; color: #9896B0; line-height: 1.5; padding-top: 8px; border-top: 0.5px solid rgba(255,255,255,0.06); }
+    .no-ratings { text-align: center; padding: 20px; color: #5C5A72; font-size: 13px; }
+    .disclaimer { width: 100%; max-width: 400px; padding: 14px 16px; background: rgba(124,111,255,0.06); border: 0.5px solid rgba(124,111,255,0.2); border-radius: 14px; font-size: 12px; color: #9896B0; line-height: 1.6; margin-bottom: 16px; }
+    .download-btn { width: 100%; max-width: 400px; padding: 16px; background: #7C6FFF; border-radius: 14px; border: none; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: block; margin-bottom: 12px; }
     .logo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 32px; }
     .logo-icon { width: 36px; height: 36px; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     .logo-text { font-size: 22px; font-weight: 800; color: #F0EFF8; letter-spacing: -0.5px; }
+    .loading { text-align: center; color: #5C5A72; margin-top: 60px; font-size: 16px; }
     .not-found { text-align: center; color: #5C5A72; margin-top: 60px; }
     .not-found h2 { font-size: 24px; color: #F0EFF8; margin-bottom: 8px; }
-    .loading { text-align: center; color: #5C5A72; margin-top: 60px; font-size: 16px; }
     #profile { display: none; width: 100%; max-width: 400px; flex-direction: column; align-items: center; }
     #error { display: none; }
   </style>
@@ -135,14 +73,10 @@
       <svg width="36" height="36" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
         <rect width="680" height="680" rx="140" fill="#7C3AED"/>
         <path d="M 60 680 L 60 490 Q 50 360 120 310 Q 155 285 195 305 Q 218 318 228 358 Q 255 305 285 288 Q 312 272 340 272 Q 368 272 395 288 Q 425 305 452 358 Q 462 318 485 305 Q 525 285 560 310 Q 630 360 620 490 L 620 680 Z" fill="#fff"/>
-        <circle cx="232" cy="455" r="98" fill="#7C3AED"/>
-        <circle cx="232" cy="455" r="66" fill="#fff"/>
-        <circle cx="250" cy="440" r="38" fill="#7C3AED"/>
-        <circle cx="268" cy="425" r="12" fill="#fff"/>
-        <circle cx="448" cy="455" r="98" fill="#7C3AED"/>
-        <circle cx="448" cy="455" r="66" fill="#fff"/>
-        <circle cx="464" cy="440" r="38" fill="#7C3AED"/>
-        <circle cx="482" cy="425" r="12" fill="#fff"/>
+        <circle cx="232" cy="455" r="98" fill="#7C3AED"/><circle cx="232" cy="455" r="66" fill="#fff"/>
+        <circle cx="250" cy="440" r="38" fill="#7C3AED"/><circle cx="268" cy="425" r="12" fill="#fff"/>
+        <circle cx="448" cy="455" r="98" fill="#7C3AED"/><circle cx="448" cy="455" r="66" fill="#fff"/>
+        <circle cx="464" cy="440" r="38" fill="#7C3AED"/><circle cx="482" cy="425" r="12" fill="#fff"/>
         <ellipse cx="340" cy="558" rx="22" ry="16" fill="#7C3AED"/>
       </svg>
     </div>
@@ -155,7 +89,7 @@
     <div class="card">
       <div class="card-header">
         <div class="avatar" id="avatar"></div>
-        <div class="user-info">
+        <div>
           <div class="username" id="username"></div>
           <div class="verified-badge">✓ Pledgr Verified</div>
         </div>
@@ -176,13 +110,18 @@
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
+          <div class="stat-num" id="avg-rating">—</div>
+          <div class="stat-label">Avg Rating</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
           <div class="stat-num" id="member-since">—</div>
           <div class="stat-label">Member since</div>
         </div>
       </div>
 
-      <!-- Chart section -->
-      <div class="chart-section" id="chart-section" style="display:none">
+      <!-- Chart -->
+      <div class="section" id="chart-section" style="display:none">
         <div class="section-title">TRADE BREAKDOWN</div>
         <div class="chart-wrap">
           <canvas id="tradeChart" width="120" height="120" style="flex-shrink:0"></canvas>
@@ -190,19 +129,23 @@
         </div>
       </div>
 
-      <div class="socials-section">
+      <!-- Socials -->
+      <div class="section">
         <div class="section-title">LINKED PROFILES</div>
         <div id="socials-list"></div>
+      </div>
+
+      <!-- Ratings -->
+      <div class="section">
+        <div class="section-title">RATINGS & FEEDBACK</div>
+        <div id="ratings-list"></div>
       </div>
     </div>
 
     <div class="disclaimer">
       🛡️ This profile is verified by Pledgr — a peer-to-peer transaction trust layer. Pledgr is not a marketplace or payment processor. Always trade responsibly.
     </div>
-
-    <a class="download-btn" href="https://pledgr.app">
-      📱 Download Pledgr to trade safely
-    </a>
+    <a class="download-btn" href="https://pledgr.app">📱 Download Pledgr to trade safely</a>
   </div>
 
   <div id="error" class="not-found">
@@ -213,7 +156,6 @@
   <script>
     const SUPABASE_URL = 'https://gnahywseztaspmnfhrml.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduYWh5d3NlenRhc3BtbmZocm1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNjU0OTUsImV4cCI6MjA5Mzc0MTQ5NX0.O4Xgu9dKnlHeIKl4iYVp-VRmX4SQnsXo2oojCLr6Lcg';
-
     const LEVEL_INFO = {
       1: { name: 'Member', color: '#5C5A72' },
       2: { name: 'Verified', color: '#9896B0' },
@@ -221,24 +163,24 @@
       4: { name: 'Trusted', color: '#7C6FFF' },
       5: { name: 'Elite', color: '#FFB800' },
     };
+    const SOCIAL_ICONS = { facebook: '📘', twitter: '🐦', x: '🐦', discord: '💬', steam: '🎮', reddit: '🤖' };
+    const CHART_COLORS = { Completed: '#2ECC8A', Active: '#7C6FFF', Expired: '#FFB800', Disputed: '#FF5E5E' };
+    const headers = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
 
-    const SOCIAL_ICONS = {
-      facebook: '📘', discord: '💬', twitter: '🐦', x: '🐦',
-    };
-
-    function maskHandle(handle) {
-      if (!handle) return handle;
-      if (handle.includes('@') && handle.includes('.') && !handle.startsWith('http')) {
-        const [local, domain] = handle.split('@');
-        const masked = local.length > 2
-          ? local[0] + '*'.repeat(local.length - 2) + local[local.length - 1]
-          : local[0] + '*';
+    function maskHandle(h) {
+      if (!h) return h;
+      if (h.includes('@') && h.includes('.') && !h.startsWith('http')) {
+        const [local, domain] = h.split('@');
+        const masked = local.length > 2 ? local[0] + '*'.repeat(local.length - 2) + local[local.length - 1] : local[0] + '*';
         return `${masked}@${domain}`;
       }
-      return handle;
+      return h;
     }
 
-    const headers = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+    function showError() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').style.display = 'block';
+    }
 
     async function loadProfile() {
       const params = new URLSearchParams(window.location.search);
@@ -255,16 +197,13 @@
         document.getElementById('avatar').textContent = user.username[0].toUpperCase();
         document.getElementById('username').textContent = '@' + user.username;
         document.getElementById('level-orb').textContent = user.trust_level;
-        document.getElementById('level-orb').style.cssText = `background:${level.color}22;color:${level.color};border:1px solid ${level.color}44;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0;`;
+        document.getElementById('level-orb').style.cssText = `background:${level.color}22;color:${level.color};border:1px solid ${level.color}44;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0;`;
         document.getElementById('level-name').textContent = level.name;
         document.getElementById('trade-count').textContent = user.trade_count || 0;
         document.getElementById('member-since').textContent = new Date(user.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
-        // Fetch trades for chart
-        const tradesRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/trades?or=(seller_id.eq.${user.id},buyer_id.eq.${user.id})&select=status`,
-          { headers }
-        );
+        // Trades chart
+        const tradesRes = await fetch(`${SUPABASE_URL}/rest/v1/trades?or=(seller_id.eq.${user.id},buyer_id.eq.${user.id})&select=status`, { headers });
         const trades = await tradesRes.json();
         if (trades && trades.length > 0) {
           const stats = {
@@ -273,31 +212,22 @@
             Expired: trades.filter(t => t.status === 'expired').length,
             Disputed: trades.filter(t => t.status === 'disputed').length,
           };
-          const colors = { Completed: '#2ECC8A', Active: '#7C6FFF', Expired: '#FFB800', Disputed: '#FF5E5E' };
           const labels = Object.keys(stats).filter(k => stats[k] > 0);
           if (labels.length > 0) {
             document.getElementById('chart-section').style.display = 'block';
             new Chart(document.getElementById('tradeChart'), {
               type: 'doughnut',
-              data: {
-                labels,
-                datasets: [{ data: labels.map(k => stats[k]), backgroundColor: labels.map(k => colors[k]), borderWidth: 0 }]
-              },
+              data: { labels, datasets: [{ data: labels.map(k => stats[k]), backgroundColor: labels.map(k => CHART_COLORS[k]), borderWidth: 0 }] },
               options: { plugins: { legend: { display: false } }, cutout: '65%' }
             });
             const legend = document.getElementById('chart-legend');
             labels.forEach(k => {
-              legend.innerHTML += `
-                <div class="legend-item">
-                  <div class="legend-dot" style="background:${colors[k]}"></div>
-                  <span>${k}</span>
-                  <span class="legend-value" style="color:${colors[k]}">${stats[k]}</span>
-                </div>`;
+              legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${CHART_COLORS[k]}"></div><span>${k}</span><span class="legend-value" style="color:${CHART_COLORS[k]}">${stats[k]}</span></div>`;
             });
           }
         }
 
-        // Fetch socials
+        // Socials
         const socialRes = await fetch(`${SUPABASE_URL}/rest/v1/social_links?user_id=eq.${user.id}&select=*`, { headers });
         const socials = await socialRes.json();
         const socialsList = document.getElementById('socials-list');
@@ -316,7 +246,51 @@
             socialsList.appendChild(item);
           });
         } else {
-          socialsList.innerHTML = '<p class="no-socials">No linked profiles yet</p>';
+          socialsList.innerHTML = '<p style="font-size:13px;color:#5C5A72">No linked profiles yet</p>';
+        }
+
+        // Ratings
+        const ratingsRes = await fetch(`${SUPABASE_URL}/rest/v1/ratings?rated_id=eq.${user.id}&select=rating,comment,created_at,rater_id&order=created_at.desc`, { headers });
+        const ratings = await ratingsRes.json();
+        const ratingsList = document.getElementById('ratings-list');
+
+        if (ratings && ratings.length > 0) {
+          const avg = (ratings.reduce((s, r) => s + r.rating, 0) / ratings.length).toFixed(1);
+          document.getElementById('avg-rating').textContent = avg + ' ⭐';
+
+          ratingsList.innerHTML = `
+            <div class="avg-card">
+              <div class="avg-num">${avg}</div>
+              <div class="avg-stars">${'⭐'.repeat(Math.round(parseFloat(avg)))}</div>
+              <div class="avg-sub">${ratings.length} rating${ratings.length !== 1 ? 's' : ''}</div>
+            </div>
+          `;
+
+          // Fetch rater usernames
+          const raterIds = ratings.map(r => r.rater_id);
+          const ratersRes = await fetch(`${SUPABASE_URL}/rest/v1/users?id=in.(${raterIds.join(',')})&select=id,username`, { headers });
+          const raters = await ratersRes.json();
+          const raterMap = {};
+          (raters || []).forEach(r => { raterMap[r.id] = r.username; });
+
+          ratings.forEach(r => {
+            const div = document.createElement('div');
+            div.className = 'rating-item';
+            div.innerHTML = `
+              <div class="rating-item-top">
+                <div class="rating-avatar">${(raterMap[r.rater_id] || '?')[0].toUpperCase()}</div>
+                <div class="rating-info">
+                  <div class="rating-user">@${raterMap[r.rater_id] || 'Anonymous'}</div>
+                  <div class="rating-date">${new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                </div>
+                <div class="rating-stars">${'⭐'.repeat(r.rating)}</div>
+              </div>
+              ${r.comment ? `<div class="rating-comment">${r.comment}</div>` : ''}
+            `;
+            ratingsList.appendChild(div);
+          });
+        } else {
+          ratingsList.innerHTML = '<p class="no-ratings">No ratings yet</p>';
         }
 
         document.getElementById('loading').style.display = 'none';
@@ -324,11 +298,6 @@
       } catch (err) {
         showError();
       }
-    }
-
-    function showError() {
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('error').style.display = 'block';
     }
 
     loadProfile();

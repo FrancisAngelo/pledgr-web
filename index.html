@@ -7,23 +7,19 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #0A0A0F; color: #F0EFF8;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px;
-    }
+    body { background: #0A0A0F; color: #F0EFF8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
     .card { width: 100%; max-width: 400px; background: #13131A; border-radius: 24px; border: 0.5px solid rgba(255,255,255,0.08); overflow: hidden; margin-bottom: 16px; }
     .card-header { background: linear-gradient(135deg, rgba(124,111,255,0.2) 0%, transparent 100%); padding: 32px 24px 24px; display: flex; align-items: center; gap: 16px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
     .avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #7C6FFF, #5a4fff); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; flex-shrink: 0; box-shadow: 0 0 24px rgba(124,111,255,0.4); }
     .username { font-size: 22px; font-weight: 700; color: #F0EFF8; letter-spacing: -0.5px; }
-    .verified-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(46,204,138,0.15); border: 0.5px solid rgba(46,204,138,0.3); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: #2ECC8A; font-weight: 500; margin-top: 5px; }
+    .verified-badge { display: inline-flex; align-items: center; background: rgba(46,204,138,0.15); border: 0.5px solid rgba(46,204,138,0.3); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: #2ECC8A; font-weight: 500; margin-top: 5px; }
     .level-section { padding: 16px 24px; display: flex; align-items: center; gap: 14px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
     .level-orb { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; flex-shrink: 0; }
     .level-label { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; }
     .level-name { font-size: 15px; font-weight: 700; color: #F0EFF8; margin-top: 2px; }
     .stats-row { display: flex; padding: 16px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
     .stat { flex: 1; text-align: center; }
-    .stat-num { font-size: 22px; font-weight: 700; color: #F0EFF8; }
+    .stat-num { font-size: 20px; font-weight: 700; color: #F0EFF8; }
     .stat-label { font-size: 11px; color: #5C5A72; margin-top: 3px; }
     .stat-divider { width: 0.5px; background: rgba(255,255,255,0.06); }
     .section { padding: 16px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
@@ -34,27 +30,29 @@
     .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9896B0; }
     .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .legend-value { margin-left: auto; font-weight: 700; font-size: 13px; }
-    .social-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #1C1C26; border-radius: 10px; border: 0.5px solid rgba(255,255,255,0.07); margin-bottom: 8px; transition: border-color 0.2s; }
-    .social-item.clickable { cursor: pointer; }
+    .social-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #1C1C26; border-radius: 10px; border: 0.5px solid rgba(255,255,255,0.07); margin-bottom: 8px; }
+    .social-item.clickable { cursor: pointer; transition: border-color 0.2s; }
     .social-item.clickable:hover { border-color: rgba(124,111,255,0.4); }
     .social-icon { font-size: 18px; }
     .social-name { font-size: 14px; color: #F0EFF8; font-weight: 500; }
     .social-handle { font-size: 12px; color: #5C5A72; margin-left: auto; }
     .social-arrow { color: #7C6FFF; font-size: 13px; margin-left: 4px; }
-    /* Ratings */
-    .avg-card { background: rgba(255,184,0,0.06); border: 0.5px solid rgba(255,184,0,0.2); border-radius: 14px; padding: 16px; text-align: center; margin-bottom: 12px; }
-    .avg-num { font-size: 36px; font-weight: 800; color: #FFB800; }
-    .avg-stars { font-size: 20px; margin: 4px 0; }
+    .ratings-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .avg-big { font-size: 32px; font-weight: 800; color: #FFB800; }
+    .avg-info { display: flex; flex-direction: column; gap: 2px; }
+    .avg-stars { font-size: 16px; }
     .avg-sub { font-size: 12px; color: #5C5A72; }
     .rating-item { background: #1C1C26; border-radius: 12px; border: 0.5px solid rgba(255,255,255,0.07); padding: 12px; margin-bottom: 8px; }
-    .rating-item-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .rating-item-top { display: flex; align-items: center; gap: 10px; }
     .rating-avatar { width: 32px; height: 32px; border-radius: 50%; background: #2D2A6E; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #A99CFF; flex-shrink: 0; }
     .rating-info { flex: 1; }
     .rating-user { font-size: 13px; font-weight: 600; color: #F0EFF8; }
-    .rating-date { font-size: 11px; color: #5C5A72; margin-top: 1px; }
-    .rating-stars { font-size: 14px; }
-    .rating-comment { font-size: 13px; color: #9896B0; line-height: 1.5; padding-top: 8px; border-top: 0.5px solid rgba(255,255,255,0.06); }
-    .no-ratings { text-align: center; padding: 20px; color: #5C5A72; font-size: 13px; }
+    .rating-date { font-size: 11px; color: #5C5A72; }
+    .rating-stars { font-size: 13px; }
+    .rating-comment { font-size: 12px; color: #9896B0; line-height: 1.5; padding-top: 8px; margin-top: 8px; border-top: 0.5px solid rgba(255,255,255,0.06); }
+    .view-all-btn { display: block; text-align: center; padding: 10px; background: rgba(124,111,255,0.08); border: 0.5px solid rgba(124,111,255,0.2); border-radius: 10px; color: #A99CFF; font-size: 13px; cursor: pointer; margin-top: 4px; text-decoration: none; }
+    .view-all-btn:hover { background: rgba(124,111,255,0.15); }
+    .no-ratings { font-size: 13px; color: #5C5A72; text-align: center; padding: 12px 0; }
     .disclaimer { width: 100%; max-width: 400px; padding: 14px 16px; background: rgba(124,111,255,0.06); border: 0.5px solid rgba(124,111,255,0.2); border-radius: 14px; font-size: 12px; color: #9896B0; line-height: 1.6; margin-bottom: 16px; }
     .download-btn { width: 100%; max-width: 400px; padding: 16px; background: #7C6FFF; border-radius: 14px; border: none; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: block; margin-bottom: 12px; }
     .logo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 32px; }
@@ -65,6 +63,7 @@
     .not-found h2 { font-size: 24px; color: #F0EFF8; margin-bottom: 8px; }
     #profile { display: none; width: 100%; max-width: 400px; flex-direction: column; align-items: center; }
     #error { display: none; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
@@ -94,7 +93,6 @@
           <div class="verified-badge">✓ Pledgr Verified</div>
         </div>
       </div>
-
       <div class="level-section">
         <div class="level-orb" id="level-orb"></div>
         <div>
@@ -102,7 +100,6 @@
           <div class="level-name" id="level-name"></div>
         </div>
       </div>
-
       <div class="stats-row">
         <div class="stat">
           <div class="stat-num" id="trade-count">0</div>
@@ -119,32 +116,23 @@
           <div class="stat-label">Member since</div>
         </div>
       </div>
-
-      <!-- Chart -->
-      <div class="section" id="chart-section" style="display:none">
+      <div class="section hidden" id="chart-section">
         <div class="section-title">TRADE BREAKDOWN</div>
         <div class="chart-wrap">
           <canvas id="tradeChart" width="120" height="120" style="flex-shrink:0"></canvas>
           <div class="chart-legend" id="chart-legend"></div>
         </div>
       </div>
-
-      <!-- Socials -->
       <div class="section">
         <div class="section-title">LINKED PROFILES</div>
         <div id="socials-list"></div>
       </div>
-
-      <!-- Ratings -->
       <div class="section">
         <div class="section-title">RATINGS & FEEDBACK</div>
         <div id="ratings-list"></div>
       </div>
     </div>
-
-    <div class="disclaimer">
-      🛡️ This profile is verified by Pledgr — a peer-to-peer transaction trust layer. Pledgr is not a marketplace or payment processor. Always trade responsibly.
-    </div>
+    <div class="disclaimer">🛡️ This profile is verified by Pledgr — a peer-to-peer transaction trust layer. Pledgr is not a marketplace or payment processor. Always trade responsibly.</div>
     <a class="download-btn" href="https://pledgr.app">📱 Download Pledgr to trade safely</a>
   </div>
 
@@ -156,22 +144,16 @@
   <script>
     const SUPABASE_URL = 'https://gnahywseztaspmnfhrml.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduYWh5d3NlenRhc3BtbmZocm1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNjU0OTUsImV4cCI6MjA5Mzc0MTQ5NX0.O4Xgu9dKnlHeIKl4iYVp-VRmX4SQnsXo2oojCLr6Lcg';
-    const LEVEL_INFO = {
-      1: { name: 'Member', color: '#5C5A72' },
-      2: { name: 'Verified', color: '#9896B0' },
-      3: { name: 'Established', color: '#2ECC8A' },
-      4: { name: 'Trusted', color: '#7C6FFF' },
-      5: { name: 'Elite', color: '#FFB800' },
-    };
-    const SOCIAL_ICONS = { facebook: '📘', twitter: '🐦', x: '🐦', discord: '💬', steam: '🎮', reddit: '🤖' };
-    const CHART_COLORS = { Completed: '#2ECC8A', Active: '#7C6FFF', Expired: '#FFB800', Disputed: '#FF5E5E' };
+    const LEVEL_INFO = { 1:{name:'Member',color:'#5C5A72'}, 2:{name:'Verified',color:'#9896B0'}, 3:{name:'Established',color:'#2ECC8A'}, 4:{name:'Trusted',color:'#7C6FFF'}, 5:{name:'Elite',color:'#FFB800'} };
+    const SOCIAL_ICONS = { facebook:'📘', twitter:'🐦', x:'🐦', discord:'💬', steam:'🎮', reddit:'🤖' };
+    const CHART_COLORS = { Completed:'#2ECC8A', Active:'#7C6FFF', Expired:'#FFB800', Disputed:'#FF5E5E' };
     const headers = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
 
     function maskHandle(h) {
       if (!h) return h;
       if (h.includes('@') && h.includes('.') && !h.startsWith('http')) {
         const [local, domain] = h.split('@');
-        const masked = local.length > 2 ? local[0] + '*'.repeat(local.length - 2) + local[local.length - 1] : local[0] + '*';
+        const masked = local.length > 2 ? local[0] + '*'.repeat(local.length-2) + local[local.length-1] : local[0]+'*';
         return `${masked}@${domain}`;
       }
       return h;
@@ -183,8 +165,7 @@
     }
 
     async function loadProfile() {
-      const params = new URLSearchParams(window.location.search);
-      const username = params.get('u');
+      const username = new URLSearchParams(window.location.search).get('u');
       if (!username) { showError(); return; }
 
       try {
@@ -200,48 +181,30 @@
         document.getElementById('level-orb').style.cssText = `background:${level.color}22;color:${level.color};border:1px solid ${level.color}44;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0;`;
         document.getElementById('level-name').textContent = level.name;
         document.getElementById('trade-count').textContent = user.trade_count || 0;
-        document.getElementById('member-since').textContent = new Date(user.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        document.getElementById('member-since').textContent = new Date(user.created_at).toLocaleDateString('en-US', {month:'short',year:'numeric'});
 
-        // Trades chart
-        const tradesRes = await fetch(`${SUPABASE_URL}/rest/v1/trades?or=(seller_id.eq.${user.id},buyer_id.eq.${user.id})&select=status`, { headers });
-        const trades = await tradesRes.json();
+        // Chart
+        const trades = await (await fetch(`${SUPABASE_URL}/rest/v1/trades?or=(seller_id.eq.${user.id},buyer_id.eq.${user.id})&select=status`, { headers })).json();
         if (trades && trades.length > 0) {
-          const stats = {
-            Completed: trades.filter(t => t.status === 'completed').length,
-            Active: trades.filter(t => ['waiting','active','payment_uploaded','delivered'].includes(t.status)).length,
-            Expired: trades.filter(t => t.status === 'expired').length,
-            Disputed: trades.filter(t => t.status === 'disputed').length,
-          };
-          const labels = Object.keys(stats).filter(k => stats[k] > 0);
+          const stats = { Completed: trades.filter(t=>t.status==='completed').length, Active: trades.filter(t=>['waiting','active','payment_uploaded','delivered'].includes(t.status)).length, Expired: trades.filter(t=>t.status==='expired').length, Disputed: trades.filter(t=>t.status==='disputed').length };
+          const labels = Object.keys(stats).filter(k=>stats[k]>0);
           if (labels.length > 0) {
-            document.getElementById('chart-section').style.display = 'block';
-            new Chart(document.getElementById('tradeChart'), {
-              type: 'doughnut',
-              data: { labels, datasets: [{ data: labels.map(k => stats[k]), backgroundColor: labels.map(k => CHART_COLORS[k]), borderWidth: 0 }] },
-              options: { plugins: { legend: { display: false } }, cutout: '65%' }
-            });
+            document.getElementById('chart-section').classList.remove('hidden');
+            new Chart(document.getElementById('tradeChart'), { type:'doughnut', data:{ labels, datasets:[{data:labels.map(k=>stats[k]),backgroundColor:labels.map(k=>CHART_COLORS[k]),borderWidth:0}] }, options:{plugins:{legend:{display:false}},cutout:'65%'} });
             const legend = document.getElementById('chart-legend');
-            labels.forEach(k => {
-              legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${CHART_COLORS[k]}"></div><span>${k}</span><span class="legend-value" style="color:${CHART_COLORS[k]}">${stats[k]}</span></div>`;
-            });
+            labels.forEach(k => { legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${CHART_COLORS[k]}"></div><span>${k}</span><span class="legend-value" style="color:${CHART_COLORS[k]}">${stats[k]}</span></div>`; });
           }
         }
 
         // Socials
-        const socialRes = await fetch(`${SUPABASE_URL}/rest/v1/social_links?user_id=eq.${user.id}&select=*`, { headers });
-        const socials = await socialRes.json();
+        const socials = await (await fetch(`${SUPABASE_URL}/rest/v1/social_links?user_id=eq.${user.id}&select=*`, { headers })).json();
         const socialsList = document.getElementById('socials-list');
         if (socials && socials.length > 0) {
           socials.forEach(s => {
             const isClickable = s.handle && s.handle.startsWith('http');
             const item = document.createElement('div');
-            item.className = `social-item${isClickable ? ' clickable' : ''}`;
-            item.innerHTML = `
-              <span class="social-icon">${SOCIAL_ICONS[s.platform] || '🔗'}</span>
-              <span class="social-name">${s.platform.charAt(0).toUpperCase() + s.platform.slice(1)}</span>
-              <span class="social-handle">${maskHandle(s.handle)}</span>
-              ${isClickable ? '<span class="social-arrow">↗</span>' : ''}
-            `;
+            item.className = `social-item${isClickable?' clickable':''}`;
+            item.innerHTML = `<span class="social-icon">${SOCIAL_ICONS[s.platform]||'🔗'}</span><span class="social-name">${s.platform.charAt(0).toUpperCase()+s.platform.slice(1)}</span><span class="social-handle">${maskHandle(s.handle)}</span>${isClickable?'<span class="social-arrow">↗</span>':''}`;
             if (isClickable) item.onclick = () => window.open(s.handle, '_blank');
             socialsList.appendChild(item);
           });
@@ -249,46 +212,61 @@
           socialsList.innerHTML = '<p style="font-size:13px;color:#5C5A72">No linked profiles yet</p>';
         }
 
-        // Ratings
-        const ratingsRes = await fetch(`${SUPABASE_URL}/rest/v1/ratings?rated_id=eq.${user.id}&select=rating,comment,created_at,rater_id&order=created_at.desc`, { headers });
-        const ratings = await ratingsRes.json();
+        // Ratings - show latest 3 only
+        const ratings = await (await fetch(`${SUPABASE_URL}/rest/v1/ratings?rated_id=eq.${user.id}&select=rating,comment,created_at,rater_id&order=created_at.desc`, { headers })).json();
         const ratingsList = document.getElementById('ratings-list');
 
         if (ratings && ratings.length > 0) {
-          const avg = (ratings.reduce((s, r) => s + r.rating, 0) / ratings.length).toFixed(1);
+          const avg = (ratings.reduce((s,r)=>s+r.rating,0)/ratings.length).toFixed(1);
           document.getElementById('avg-rating').textContent = avg + ' ⭐';
 
+          // Ratings header with avg
           ratingsList.innerHTML = `
-            <div class="avg-card">
-              <div class="avg-num">${avg}</div>
-              <div class="avg-stars">${'⭐'.repeat(Math.round(parseFloat(avg)))}</div>
-              <div class="avg-sub">${ratings.length} rating${ratings.length !== 1 ? 's' : ''}</div>
+            <div class="ratings-header">
+              <div class="avg-big">${avg}</div>
+              <div class="avg-info">
+                <div class="avg-stars">${'⭐'.repeat(Math.round(parseFloat(avg)))}</div>
+                <div class="avg-sub">${ratings.length} rating${ratings.length!==1?'s':''}</div>
+              </div>
             </div>
           `;
 
           // Fetch rater usernames
-          const raterIds = ratings.map(r => r.rater_id);
-          const ratersRes = await fetch(`${SUPABASE_URL}/rest/v1/users?id=in.(${raterIds.join(',')})&select=id,username`, { headers });
-          const raters = await ratersRes.json();
+          const raterIds = ratings.slice(0,3).map(r=>r.rater_id);
+          const raters = await (await fetch(`${SUPABASE_URL}/rest/v1/users?id=in.(${raterIds.join(',')})&select=id,username`, { headers })).json();
           const raterMap = {};
-          (raters || []).forEach(r => { raterMap[r.id] = r.username; });
+          (raters||[]).forEach(r => { raterMap[r.id] = r.username; });
 
-          ratings.forEach(r => {
+          // Show only latest 3
+          ratings.slice(0, 3).forEach(r => {
             const div = document.createElement('div');
             div.className = 'rating-item';
             div.innerHTML = `
               <div class="rating-item-top">
-                <div class="rating-avatar">${(raterMap[r.rater_id] || '?')[0].toUpperCase()}</div>
+                <div class="rating-avatar">${(raterMap[r.rater_id]||'?')[0].toUpperCase()}</div>
                 <div class="rating-info">
-                  <div class="rating-user">@${raterMap[r.rater_id] || 'Anonymous'}</div>
-                  <div class="rating-date">${new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                  <div class="rating-user">@${raterMap[r.rater_id]||'Anonymous'}</div>
+                  <div class="rating-date">${new Date(r.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div>
                 </div>
                 <div class="rating-stars">${'⭐'.repeat(r.rating)}</div>
               </div>
-              ${r.comment ? `<div class="rating-comment">${r.comment}</div>` : ''}
+              ${r.comment?`<div class="rating-comment">${r.comment}</div>`:''}
             `;
             ratingsList.appendChild(div);
           });
+
+          // Show "View all" if more than 3
+          if (ratings.length > 3) {
+            const viewAll = document.createElement('div');
+            viewAll.className = 'view-all-btn';
+            viewAll.textContent = `View all ${ratings.length} ratings`;
+            viewAll.onclick = () => {
+              // Show all hidden ratings
+              document.querySelectorAll('.rating-item.hidden-rating').forEach(el => el.classList.remove('hidden-rating'));
+              viewAll.style.display = 'none';
+            };
+            ratingsList.appendChild(viewAll);
+          }
         } else {
           ratingsList.innerHTML = '<p class="no-ratings">No ratings yet</p>';
         }

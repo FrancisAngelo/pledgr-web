@@ -9,29 +9,23 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0A0A0F; color: #F0EFF8; min-height: 100vh; }
     .container { max-width: 480px; margin: 0 auto; padding: 24px 16px 60px; }
-
     .profile-card { background: #13131A; border-radius: 20px; border: 0.5px solid rgba(255,255,255,0.07); padding: 24px; margin-bottom: 16px; }
     .avatar-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
     .avatar { width: 64px; height: 64px; border-radius: 50%; background: #2D2A6E; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; color: #A99CFF; flex-shrink: 0; border: 2px solid rgba(152,150,176,0.4); }
-    .profile-info { flex: 1; }
     .username { font-size: 22px; font-weight: 700; color: #F0EFF8; letter-spacing: -0.5px; }
     .verified-badge { display: inline-block; margin-top: 5px; padding: 2px 10px; border-radius: 999px; background: rgba(46,204,138,0.12); border: 0.5px solid rgba(46,204,138,0.3); font-size: 11px; color: #2ECC8A; font-weight: 500; }
-
     .level-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
     .level-orb { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; flex-shrink: 0; }
-    .level-info .level-label { font-size: 9px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; }
-    .level-info .level-name { font-size: 15px; font-weight: 600; color: #F0EFF8; margin-top: 1px; }
-    .strike-badge { font-size: 11px; font-weight: 500; margin-top: 3px; }
-
+    .level-label { font-size: 9px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; }
+    .level-name { font-size: 15px; font-weight: 600; color: #F0EFF8; margin-top: 1px; }
+    .strike-badge { display: inline-block; margin-top: 4px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; border: 0.5px solid; }
     .stats-row { display: flex; border-top: 0.5px solid rgba(255,255,255,0.06); padding-top: 14px; }
     .stat-item { flex: 1; text-align: center; }
     .stat-item + .stat-item { border-left: 0.5px solid rgba(255,255,255,0.06); }
     .stat-num { font-size: 17px; font-weight: 700; color: #F0EFF8; }
     .stat-label { font-size: 10px; color: #5C5A72; margin-top: 2px; }
-
     .card { background: #13131A; border-radius: 16px; border: 0.5px solid rgba(255,255,255,0.07); padding: 18px; margin-bottom: 14px; }
     .card-title { font-size: 11px; color: #5C5A72; letter-spacing: 0.8px; font-weight: 500; margin-bottom: 14px; }
-
     .chart-wrap { display: flex; align-items: center; gap: 20px; }
     .chart-canvas-wrap { width: 110px; height: 110px; flex-shrink: 0; }
     .chart-legend { flex: 1; display: flex; flex-direction: column; gap: 8px; }
@@ -39,13 +33,16 @@
     .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .legend-label { font-size: 13px; color: #9896B0; flex: 1; }
     .legend-value { font-size: 14px; font-weight: 700; }
-
     .social-list { display: flex; flex-direction: column; gap: 8px; }
     .social-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #1C1C26; border-radius: 10px; border: 0.5px solid rgba(46,204,138,0.2); text-decoration: none; color: inherit; }
     .social-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex-shrink: 0; }
     .social-name { font-size: 13px; font-weight: 500; color: #F0EFF8; flex: 1; }
     .social-handle { font-size: 11px; color: #2ECC8A; }
-
+    .strike-summary { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,94,94,0.05); border-radius: 10px; border: 0.5px solid rgba(255,94,94,0.15); }
+    .strike-summary-icon { font-size: 24px; }
+    .strike-summary-info { flex: 1; }
+    .strike-summary-title { font-size: 13px; font-weight: 600; color: #F0EFF8; }
+    .strike-summary-sub { font-size: 11px; color: #9896B0; margin-top: 2px; }
     .ratings-list { display: flex; flex-direction: column; gap: 10px; }
     .rating-item { padding: 12px; background: #1C1C26; border-radius: 10px; }
     .rating-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
@@ -53,20 +50,15 @@
     .rating-stars { font-size: 12px; color: #FFB800; }
     .rating-comment { font-size: 13px; color: #9896B0; line-height: 1.5; }
     .rating-date { font-size: 10px; color: #5C5A72; margin-top: 4px; }
-
     .show-more-btn { width: 100%; padding: 10px; border-radius: 10px; background: transparent; border: 0.5px solid rgba(255,255,255,0.1); color: #9896B0; font-size: 13px; cursor: pointer; margin-top: 8px; }
-    .show-more-btn:hover { background: rgba(255,255,255,0.04); }
-
     .download-card { background: rgba(124,111,255,0.08); border-radius: 16px; border: 0.5px solid rgba(124,111,255,0.2); padding: 20px; text-align: center; }
     .download-title { font-size: 16px; font-weight: 700; color: #F0EFF8; margin-bottom: 6px; }
     .download-sub { font-size: 13px; color: #9896B0; margin-bottom: 16px; line-height: 1.5; }
     .download-btn { display: inline-block; background: #7C6FFF; color: #fff; font-size: 14px; font-weight: 600; padding: 12px 28px; border-radius: 999px; text-decoration: none; }
-
     .not-found { text-align: center; padding: 80px 20px; }
     .not-found-icon { font-size: 48px; margin-bottom: 16px; }
-    .not-found-title { font-size: 20px; font-weight: 700; color: #F0EFF8; margin-bottom: 8px; }
+    .not-found-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
     .not-found-sub { font-size: 14px; color: #5C5A72; }
-
     .loading { text-align: center; padding: 80px 20px; color: #5C5A72; font-size: 14px; }
   </style>
 </head>
@@ -74,7 +66,6 @@
 <div class="container" id="app">
   <div class="loading">Loading profile...</div>
 </div>
-
 <script>
 const SUPABASE_URL = 'https://gnahywseztaspmnfhrml.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduYWh5d3NlenRhc3BtbmZocm1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNjU0OTUsImV4cCI6MjA5Mzc0MTQ5NX0.O4Xgu9dKnlHeIKl4iYVp-VRmX4SQnsXo2oojCLr6Lcg';
@@ -93,22 +84,27 @@ const SOCIAL_INFO = {
   discord: { name: 'Discord', color: '#5865F2', bg: 'rgba(88,101,242,0.12)', icon: 'D' },
 };
 
-const maskEmail = (email) => {
-  if (!email || !email.includes('@')) return email;
-  const [local, domain] = email.split('@');
-  const masked = local.length > 2 ? local[0] + '*'.repeat(local.length - 2) + local[local.length - 1] : local[0] + '*';
-  return `${masked}@${domain}`;
-};
-
 const getStrikeInfo = (user) => {
   if (!user.strikes_count || user.strikes_count === 0) return null;
   switch (user.strike_severity) {
-    case 'minor': return { label: `🟡 ${user.strikes_count} Warning Strike${user.strikes_count > 1 ? 's' : ''}`, color: '#FFB800' };
-    case 'moderate': return { label: '🟠 Restricted Seller', color: '#FF8C00' };
-    case 'severe': return { label: '🔴 Under Review', color: '#FF5E5E' };
-    case 'critical': return { label: '⛔ Suspended', color: '#9B0000' };
+    case 'minor': return { label: `🟡 ${user.strikes_count} Warning Strike${user.strikes_count > 1 ? 's' : ''}`, color: '#FFB800', border: 'rgba(255,184,0,0.3)', bg: 'rgba(255,184,0,0.08)' };
+    case 'moderate': return { label: '🟠 Restricted Trader', color: '#FF8C00', border: 'rgba(255,140,0,0.3)', bg: 'rgba(255,140,0,0.08)' };
+    case 'severe': return { label: '🔴 Under Review', color: '#FF5E5E', border: 'rgba(255,94,94,0.3)', bg: 'rgba(255,94,94,0.08)' };
+    case 'critical': return { label: '⛔ Suspended', color: '#FF3B30', border: 'rgba(155,0,0,0.4)', bg: 'rgba(155,0,0,0.1)' };
     default: return null;
   }
+};
+
+const getStrikeSummaryText = (user) => {
+  if (!user.strikes_count || user.strikes_count === 0) return null;
+  const severity = user.strike_severity;
+  const count = user.strikes_count;
+  const severityLabel = { minor: 'Minor', moderate: 'Moderate', severe: 'Severe', critical: 'Critical' }[severity] || severity;
+  return {
+    icon: { minor: '🟡', moderate: '🟠', severe: '🔴', critical: '⛔' }[severity] || '⚠️',
+    title: `${count} Strike${count > 1 ? 's' : ''} on Record`,
+    sub: `Highest severity: ${severityLabel}. Other traders have flagged issues with this account.`,
+  };
 };
 
 async function query(table, params = '') {
@@ -137,12 +133,13 @@ async function loadProfile() {
     const user = users[0];
     const level = LEVEL_INFO[user.trust_level] || LEVEL_INFO[1];
     const strikeInfo = getStrikeInfo(user);
+    const strikeSummary = getStrikeSummaryText(user);
 
     const [buying, selling, socials, ratings] = await Promise.all([
       query('trades', `?buyer_id=eq.${user.id}&select=status`),
       query('trades', `?seller_id=eq.${user.id}&select=status`),
       query('social_links', `?user_id=eq.${user.id}&select=platform,handle`),
-      query('ratings', `?rated_id=eq.${user.id}&select=rating,comment,created_at,rater_id&order=created_at.desc`),
+      query('ratings', `?rated_id=eq.${user.id}&select=rating,comment,created_at&order=created_at.desc`),
     ]);
 
     const allTrades = [...(buying || []), ...(selling || [])];
@@ -159,10 +156,21 @@ async function loadProfile() {
 
     document.title = `@${user.username} — Pledgr`;
 
-    let ratingsHTML = '';
-    const showAll = ratings && ratings.length <= 3;
-    const initialRatings = ratings ? ratings.slice(0, 3) : [];
+    let socialsHTML = '';
+    (socials || []).forEach(s => {
+      const info = SOCIAL_INFO[s.platform];
+      if (!info) return;
+      const isUrl = s.handle.startsWith('http');
+      socialsHTML += `
+        <a class="social-item" href="${isUrl ? s.handle : '#'}" ${isUrl ? 'target="_blank"' : ''} style="cursor:${isUrl ? 'pointer' : 'default'}">
+          <div class="social-icon" style="background:${info.bg};color:${info.color}">${info.icon}</div>
+          <span class="social-name">${info.name}</span>
+          <span class="social-handle">✓ Linked</span>
+        </a>`;
+    });
 
+    let ratingsHTML = '';
+    const initialRatings = ratings ? ratings.slice(0, 3) : [];
     initialRatings.forEach(r => {
       ratingsHTML += `
         <div class="rating-item">
@@ -189,39 +197,23 @@ async function loadProfile() {
         </div>`;
     });
 
-    let socialsHTML = '';
-    (socials || []).forEach(s => {
-      const info = SOCIAL_INFO[s.platform];
-      if (!info) return;
-      const isUrl = s.handle.startsWith('http');
-      const href = isUrl ? s.handle : '#';
-      socialsHTML += `
-        <a class="social-item" href="${href}" ${isUrl ? 'target="_blank"' : ''} style="cursor:${isUrl ? 'pointer' : 'default'}">
-          <div class="social-icon" style="background:${info.bg};color:${info.color}">${info.icon}</div>
-          <span class="social-name">${info.name}</span>
-          <span class="social-handle">✓ Linked</span>
-        </a>`;
-    });
-
     app.innerHTML = `
       <!-- Profile Card -->
       <div class="profile-card">
         <div class="avatar-row">
           <div class="avatar">${user.username[0].toUpperCase()}</div>
-          <div class="profile-info">
+          <div>
             <div class="username">@${user.username}</div>
             <div class="verified-badge">✓ Pledgr Verified</div>
           </div>
         </div>
 
         <div class="level-row">
-          <div class="level-orb" style="color:${level.color};border-color:${level.color}44;background:${level.color}22">
-            ${user.trust_level}
-          </div>
-          <div class="level-info">
+          <div class="level-orb" style="color:${level.color};border-color:${level.color}44;background:${level.color}22">${user.trust_level}</div>
+          <div>
             <div class="level-label">TRUST LEVEL</div>
             <div class="level-name">${level.name}</div>
-            ${strikeInfo ? `<div class="strike-badge" style="color:${strikeInfo.color}">${strikeInfo.label}</div>` : ''}
+            ${strikeInfo ? `<div class="strike-badge" style="color:${strikeInfo.color};background:${strikeInfo.bg};border-color:${strikeInfo.border}">${strikeInfo.label}</div>` : ''}
           </div>
         </div>
 
@@ -241,14 +233,25 @@ async function loadProfile() {
         </div>
       </div>
 
+      <!-- Strike Summary (if any) -->
+      ${strikeSummary ? `
+      <div class="card">
+        <div class="card-title">REPUTATION HISTORY</div>
+        <div class="strike-summary">
+          <div class="strike-summary-icon">${strikeSummary.icon}</div>
+          <div class="strike-summary-info">
+            <div class="strike-summary-title">${strikeSummary.title}</div>
+            <div class="strike-summary-sub">${strikeSummary.sub}</div>
+          </div>
+        </div>
+      </div>` : ''}
+
       <!-- Trade Breakdown -->
       ${allTrades.length > 0 ? `
       <div class="card">
         <div class="card-title">TRADE BREAKDOWN</div>
         <div class="chart-wrap">
-          <div class="chart-canvas-wrap">
-            <canvas id="donutChart"></canvas>
-          </div>
+          <div class="chart-canvas-wrap"><canvas id="donutChart"></canvas></div>
           <div class="chart-legend">
             <div class="legend-item"><div class="legend-dot" style="background:#2ECC8A"></div><span class="legend-label">Completed</span><span class="legend-value" style="color:#2ECC8A">${stats.completed}</span></div>
             <div class="legend-item"><div class="legend-dot" style="background:#7C6FFF"></div><span class="legend-label">Active</span><span class="legend-value" style="color:#7C6FFF">${stats.active}</span></div>
@@ -284,7 +287,6 @@ async function loadProfile() {
       </div>
     `;
 
-    // Draw chart
     if (allTrades.length > 0) {
       const ctx = document.getElementById('donutChart').getContext('2d');
       new Chart(ctx, {
@@ -294,19 +296,14 @@ async function loadProfile() {
             data: [stats.completed, stats.active, stats.expired, stats.disputed],
             backgroundColor: ['#2ECC8A', '#7C6FFF', '#FFB800', '#FF5E5E'],
             borderWidth: 0,
-            hoverOffset: 4,
           }]
         },
-        options: {
-          cutout: '70%',
-          plugins: { legend: { display: false }, tooltip: { enabled: false } },
-          animation: { animateRotate: true, duration: 800 },
-        }
+        options: { cutout: '70%', plugins: { legend: { display: false }, tooltip: { enabled: false } } }
       });
     }
 
   } catch (err) {
-    app.innerHTML = `<div class="not-found"><div class="not-found-icon">⚠️</div><div class="not-found-title">Something went wrong</div><div class="not-found-sub">Could not load this profile. Please try again.</div></div>`;
+    app.innerHTML = `<div class="not-found"><div class="not-found-icon">⚠️</div><div class="not-found-title">Something went wrong</div><div class="not-found-sub">Could not load this profile.</div></div>`;
   }
 }
 
